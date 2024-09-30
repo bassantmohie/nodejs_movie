@@ -67,18 +67,17 @@ app.post("/addList2", async (req, res) => {
 app.get("/movies",async(req,res)=>{
  const getMovies= await movie.find();
  res.json(getMovies)
-})
+});
 app.get("/series",async(req,res)=>{
   const getSeries= await tvSeries.find();
   res.json(getSeries)
- })
- 
- 
- app.get("/getMovie/:id", async (req, res) => {
+ });
+
+app.get("/getMovie/:id", async (req, res) => {
   const id = req.params.id;
   try {
-    const movies = await movie.findById(id);
-    res.json(movies);
+    const moviefind = await movie.findById(id);
+    res.json(moviefind);
   } catch (e) {
     console.log(e);
   }
@@ -87,87 +86,13 @@ app.get("/series",async(req,res)=>{
 app.get("/getTvSeries/:id", async (req, res) => {
   const id = req.params.id;
   try {
-    const tvSeries = await tvSeries.findById(id);
-    res.json(tvSeries);
+    const tvSeriesFind = await tvSeries.findById(id);
+    res.json(tvSeriesFind);
   } catch (e) {
     console.log(e);
   }
 });
  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-app.get("/hello",(req,res)=>{
-  let x=" ";
-  for(let i=0;i<=100;i++){
-    x+=i+"_";
-  }
-  res.send(`${x}`)
-});
-
-app.post("/test",(req,res)=>{
-  res.send("test")
-});
-app.get("/findsum/:num1/:num2",(req,res)=>{ //path parameter
-   const number1= req.params.num1;
-   const number2=req.params.num2
-   const total=Number(number1)+Number(number2)
-
-  res.send(`${total} `)
-
-});
-app.get("/findsum2",(req,res)=>{ //body parameter
-  const number1= req.params.num1;
-  const number2=req.params.num2
-  const total=Number(number1)+Number(number2)
-
- res.send(`${total} `)
-
-});
-
 app.listen(3000,()=>{
   console.log("im listening in port 3000");
   
