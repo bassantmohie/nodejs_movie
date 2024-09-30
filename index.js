@@ -74,6 +74,28 @@ app.get("/series",async(req,res)=>{
  })
  
  
+ app.get("/getMovie/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    const movies = await movie.findById(id);
+    res.json(movies);
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+app.get("/getTvSeries/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    const tvSeries = await tvSeries.findById(id);
+    res.json(tvSeries);
+  } catch (e) {
+    console.log(e);
+  }
+});
+ 
+
+
 
 
 
