@@ -10,6 +10,7 @@ console.log("successfully");
 })
 const movie =require("./models/movie");
 const tvSeries=require("./models/tvSeries");
+const singUp=require("./models/signUp");
 const app=express();
 app.use(express.json())
 
@@ -93,8 +94,45 @@ app.get("/getTvSeries/:id", async (req, res) => {
   }
 });
  
+
+app.post("/singUp",async(req,res)=>{
+   const user=new singUp();
+   user.name=req.body.name;
+   user.email=req.body.email;
+   user.password=req.body.password;
+   const userLogin=await singUp.find();
+   const check=  userLogin.filter((element)=>{
+    return element.email==req.body.email;
+    
+   })
+  if(check.length==0){
+    await user.save()
+    res.send("true")
+  }
+  else{
+    res.send("this email already exist")
+  }
+})
+app.get("/logIn",async(req,res)=>{
+  const user=new singUp();
+  const userLogin=await singUp.find();
+ const check=  userLogin.filter((element)=>{
+  return element.email==req.body.email&&element.password==req.body.password;
+  
+ })
+if(check.length==1){
+  res.json(check[0])
+}
+else{
+  res.send("email or password maybe wrong")
+}
+
+})
+
+
 app.listen(3000,()=>{
   console.log("im listening in port 3000");
   
 
 });
+
